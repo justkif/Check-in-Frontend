@@ -1,1 +1,13 @@
 @import 'tailwindcss';
+
+.login {
+    background: rgba(254, 182, 36, 1);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(254, 182, 36, 0.3);
+}
+
+.loadingColor {
+    border-color: rgba(254, 182, 36, 1);
+    border-top-color: white;
+}
