@@ -22,7 +22,7 @@ export default function LoginPage() {
             setLoading(false);
             setTimeout(() => {
                 setError('');
-            }, 3200);
+            }, 2200);
         }
     }
     return (
