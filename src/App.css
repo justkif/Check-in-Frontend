@@ -11,3 +11,7 @@
     border-color: rgba(254, 182, 36, 1);
     border-top-color: white;
 }
+
+.bgColor {
+    background: rgba(254, 182, 36, 1);
+}
