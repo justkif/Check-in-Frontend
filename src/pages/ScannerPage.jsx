@@ -133,7 +133,7 @@ export default function ScannerPage() {
                 </div>
             </div>
             {view === 'history' && (
-                <div className="mt-4 overflow-y-auto max-h-[80vh] px-2">
+                <div className='mt-4 overflow-y-auto max-h-[80vh] px-2'>
                     <ul className='flex flex-col items-center text-white text-lg'>
                         {scanned.map((runner) => (
                             <HistoryItem scanned={runner} key={runner.ordinalNumber} />
