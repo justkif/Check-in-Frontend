@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import userGetAll from '../apis/userGetAll';
 import updatePasswordAdmin from '../apis/updatePasswordAdmin';
 import updateRole from '../apis/updateRole';
+import registerUser from '../apis/registerUser';
 import Table from '../components/Table';
 import Loading from '../components/Loading';
 import Success from '../components/Success';
@@ -28,19 +29,24 @@ export default function UserPage() {
         setType('');
         setUser('');
     }
-    const handleConfirm = async (arg) => {
+    const handleConfirm = async (arg1, arg2) => {
         try {
             setType('');
             setLoading(true);
             setSuccess('');
+            setError('');
             if (type === 'updatePasswordAdmin') {
-                const response = await updatePasswordAdmin(user.username, arg); 
+                const response = await updatePasswordAdmin(user.username, arg1); 
                 setSuccess(`${response.username} password has changed.`)
             } else if (type === 'updateRole') {
-                const response = await updateRole(user.username, arg); 
+                const response = await updateRole(user.username, arg1); 
                 setSuccess(`${response.username} has become ${response.role}.`);
                 getAll();         
-            }
+            } else if (type === 'registerUser') {
+                const response = await registerUser(arg1, arg2);
+                setSuccess(`${response.username} has been created.`);
+                getAll();
+            }   
         } catch (err) {
             setError(err);
         } finally {
@@ -53,6 +59,7 @@ export default function UserPage() {
     }, []);
     return (
         <div>
+            <button className='px-4 py-2 rounded bgColor text-white font-semibold my-4' onClick={() => setType('registerUser')}>Create User</button>
             <Table 
                 type={'user'} 
                 data={users} 
@@ -65,7 +72,13 @@ export default function UserPage() {
                     type={type} 
                     data={user} 
                     cancel={handleCancel} 
-                    confirm={(arg) => handleConfirm(arg)}
+                    confirm={(arg1, arg2) => {
+                        if (type === 'registerUser') {
+                          handleConfirm(arg1, arg2);
+                        } else {
+                          handleConfirm(arg1);
+                        }
+                      }}
                 />
             }
             {loading && <Loading />}

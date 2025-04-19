@@ -1,6 +1,8 @@
 import { useState } from 'react';
 
 export default function Modal({ data, type, cancel, confirm }) {
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
     const [arg, setArg] = useState('');
     return (
         <div className='fixed inset-0 flex items-center justify-center z-50 bg-[rgba(0,0,0,0.7)]'>
@@ -29,6 +31,26 @@ export default function Modal({ data, type, cancel, confirm }) {
                         <option value='manager'>manager</option>
                     </select>
                 )}
+                {type === 'registerUser' && (
+                    <div>
+                        <input
+                            type='text'
+                            value={username}
+                            onChange={(username) => setUsername(username.target.value)}
+                            className='w-full border px-3 py-2 rounded'
+                            placeholder='Enter a username'
+                            required
+                        />
+                        <input
+                            type='text'
+                            value={password}
+                            onChange={(password) => setPassword(password.target.value)}
+                            className='w-full border px-3 py-2 rounded mt-2'
+                            placeholder='Enter a password'
+                            required
+                        />
+                    </div>
+                )}
                 <div className='flex items-center'>
                     <button
                         className='px-4 py-2 bg-red-500 text-white rounded mt-4 mx-auto w-auto mr-10'
@@ -37,7 +59,13 @@ export default function Modal({ data, type, cancel, confirm }) {
                     </button>
                     <button
                         className='px-4 py-2 bg-green-500 text-white rounded mt-4 mx-auto w-auto'
-                        onClick={() => confirm(arg)}
+                        onClick={() => {
+                            if (type === 'registerUser') {
+                                confirm(username, password);
+                            } else {
+                                confirm(arg);
+                            }
+                        }}
                     >Confirm
                     </button>
                 </div>
