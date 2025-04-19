@@ -3,7 +3,12 @@ import { useState } from 'react';
 export default function Modal({ data, type, cancel, confirm }) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [arg, setArg] = useState('');
+    const [arg, setArg] = useState(() => {
+        if (type === 'updateRole') {
+            return 'runner';
+        }
+        return '';
+    });
     return (
         <div className='fixed inset-0 flex items-center justify-center z-50 bg-[rgba(0,0,0,0.7)]'>
             <div className='bg-white p-6 rounded-lg shadow-lg max-w-lg font-bold w-11/12'>
